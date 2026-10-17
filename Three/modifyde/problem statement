@@ -1,0 +1,5 @@
+AVL Tree Leaf Deletion
+Suggested modifications:
+Display balance factors along the path to the root after deletion.
+Report any rotations caused by deletion.
+Test deletion of the root when it is a leaf.

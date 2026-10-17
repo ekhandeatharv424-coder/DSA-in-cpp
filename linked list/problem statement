@@ -1,2 +1,3 @@
-implement a singly linked list to maintain employee records. 
-perform insertion begnning/end,deletion and searching operations.
+To implement a singly linked list in C++ to maintain employee records 
+containing Employee ID, Name, Department, and Salary, and perform 
+insertion at the beginning and end, deletion, searching, and display operations.

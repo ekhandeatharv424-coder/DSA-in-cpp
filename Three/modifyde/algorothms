@@ -1,0 +1,15 @@
+Start.
+Create an AVL tree by inserting the given elements.
+Display the AVL tree using inorder traversal.
+Enter the key of the leaf node to be deleted.
+Search for the given key in the AVL tree.
+If the key is not found, display an appropriate message.
+If the node is not a leaf, display "Node is not a leaf."
+If the node is a leaf, delete it.
+Update the heights of the ancestor nodes.
+Calculate the balance factors along the path to the root.
+If any node becomes unbalanced, perform the required LL, RR, LR, or RL rotation and report the rotation.
+Display the balance factors along the path to the root.
+Display the AVL tree after deletion.
+If the root is a leaf, delete the root and set the tree to NULL.
+Stop.

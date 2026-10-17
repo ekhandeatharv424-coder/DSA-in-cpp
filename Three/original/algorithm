@@ -1,1 +1,12 @@
-algo
+Start.
+Create an AVL tree by inserting elements.
+Enter the key of the leaf node to be deleted.
+Search for the given key in the AVL tree.
+If the key is not found, display "Key not found" and stop.
+If the node is not a leaf node, display "Node is not a leaf" and stop.
+Delete the leaf node.
+Update the height of the affected ancestor nodes.
+Calculate the balance factor of each affected node.
+If the tree becomes unbalanced, perform the required LL, RR, LR, or RL rotation.
+Display the AVL tree after deletion.
+Stop.

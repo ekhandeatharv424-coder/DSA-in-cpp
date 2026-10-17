@@ -1,0 +1,293 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+using namespace std;
+
+struct Node
+{
+    int key;
+    Node *left, *right;
+    int height;
+};
+
+vector<int> pathNodes;
+
+int height(Node *n)
+{
+    return n == NULL ? 0 : n->height;
+}
+
+int balanceFactor(Node *n)
+{
+    return n == NULL ? 0 :
+           height(n->left) - height(n->right);
+}
+
+Node* createNode(int key)
+{
+    Node *n = new Node;
+    n->key = key;
+    n->left = n->right = NULL;
+    n->height = 1;
+    return n;
+}
+
+Node* rightRotate(Node *y)
+{
+    cout << "Right rotation at node "
+         << y->key << endl;
+
+    Node *x = y->left;
+    Node *t2 = x->right;
+
+    x->right = y;
+    y->left = t2;
+
+    y->height = 1 + max(height(y->left),
+                        height(y->right));
+
+    x->height = 1 + max(height(x->left),
+                        height(x->right));
+
+    return x;
+}
+
+Node* leftRotate(Node *x)
+{
+    cout << "Left rotation at node "
+         << x->key << endl;
+
+    Node *y = x->right;
+    Node *t2 = y->left;
+
+    y->left = x;
+    x->right = t2;
+
+    x->height = 1 + max(height(x->left),
+                        height(x->right));
+
+    y->height = 1 + max(height(y->left),
+                        height(y->right));
+
+    return y;
+}
+
+Node* insert(Node *root, int key)
+{
+    if (root == NULL)
+        return createNode(key);
+
+    if (key < root->key)
+        root->left = insert(root->left, key);
+    else if (key > root->key)
+        root->right = insert(root->right, key);
+    else
+        return root;
+
+    root->height = 1 + max(height(root->left),
+                           height(root->right));
+
+    int bf = balanceFactor(root);
+
+    if (bf > 1 && key < root->left->key)
+        return rightRotate(root);
+
+    if (bf < -1 && key > root->right->key)
+        return leftRotate(root);
+
+    if (bf > 1 && key > root->left->key)
+    {
+        root->left = leftRotate(root->left);
+        return rightRotate(root);
+    }
+
+    if (bf < -1 && key < root->right->key)
+    {
+        root->right = rightRotate(root->right);
+        return leftRotate(root);
+    }
+
+    return root;
+}
+
+bool isLeaf(Node *n)
+{
+    return n != NULL &&
+           n->left == NULL &&
+           n->right == NULL;
+}
+
+Node* deleteLeaf(Node *root, int key, bool &deleted)
+{
+    if (root == NULL)
+        return NULL;
+
+    if (key < root->key)
+        root->left = deleteLeaf(root->left,
+                                key, deleted);
+    else if (key > root->key)
+        root->right = deleteLeaf(root->right,
+                                 key, deleted);
+    else
+    {
+        if (!isLeaf(root))
+        {
+            cout << "Node is not a leaf." << endl;
+            return root;
+        }
+
+        delete root;
+        deleted = true;
+        return NULL;
+    }
+
+    if (root == NULL)
+        return NULL;
+
+    root->height = 1 + max(height(root->left),
+                           height(root->right));
+
+    int bf = balanceFactor(root);
+
+    if (bf > 1 && balanceFactor(root->left) >= 0)
+        return rightRotate(root);
+
+    if (bf > 1 && balanceFactor(root->left) < 0)
+    {
+        cout << "Left-Right rotation at node "
+             << root->key << endl;
+
+        root->left = leftRotate(root->left);
+        return rightRotate(root);
+    }
+
+    if (bf < -1 && balanceFactor(root->right) <= 0)
+        return leftRotate(root);
+
+    if (bf < -1 && balanceFactor(root->right) > 0)
+    {
+        cout << "Right-Left rotation at node "
+             << root->key << endl;
+
+        root->right = rightRotate(root->right);
+        return leftRotate(root);
+    }
+
+    return root;
+}
+
+void inorder(Node *root)
+{
+    if (root != NULL)
+    {
+        inorder(root->left);
+        cout << root->key << " ";
+        inorder(root->right);
+    }
+}
+
+void displayBalanceFactors(Node *root, int key)
+{
+    if (root == NULL)
+        return;
+
+    if (key < root->key)
+    {
+        displayBalanceFactors(root->left, key);
+        cout << "Node " << root->key
+             << " : BF = " << balanceFactor(root)
+             << endl;
+    }
+    else if (key > root->key)
+    {
+        displayBalanceFactors(root->right, key);
+        cout << "Node " << root->key
+             << " : BF = " << balanceFactor(root)
+             << endl;
+    }
+    else
+    {
+        cout << "Node " << root->key
+             << " : BF = " << balanceFactor(root)
+             << endl;
+    }
+}
+
+void destroyTree(Node *root)
+{
+    if (root != NULL)
+    {
+        destroyTree(root->left);
+        destroyTree(root->right);
+        delete root;
+    }
+}
+
+int main()
+{
+    Node *root = NULL;
+    int n, key, delKey;
+    bool deleted = false;
+
+    cout << "Enter number of nodes: ";
+    cin >> n;
+
+    cout << "Enter node values: ";
+
+    for (int i = 0; i < n; i++)
+    {
+        cin >> key;
+        root = insert(root, key);
+    }
+
+    cout << "\nInorder before deletion: ";
+    inorder(root);
+
+    cout << "\nEnter leaf node to delete: ";
+    cin >> delKey;
+
+    if (root == NULL)
+    {
+        cout << "Tree is empty." << endl;
+    }
+    else
+    {
+        if (isLeaf(root) && root->key == delKey)
+        {
+            delete root;
+            root = NULL;
+            deleted = true;
+            cout << "Root leaf deleted successfully."
+                 << endl;
+        }
+        else
+        {
+            root = deleteLeaf(root, delKey, deleted);
+
+            if (deleted)
+                cout << "Leaf deleted successfully."
+                     << endl;
+            else
+                cout << "Key not found or node is not a leaf."
+                     << endl;
+        }
+
+        if (deleted)
+        {
+            cout << "\nInorder after deletion: ";
+            inorder(root);
+
+            cout << "\n\nBalance factors along the path "
+                    "to the root:" << endl;
+
+            if (root != NULL)
+                displayBalanceFactors(root, delKey);
+            else
+                cout << "Tree is empty; no balance factors."
+                     << endl;
+        }
+    }
+
+    destroyTree(root);
+    return 0;
+}

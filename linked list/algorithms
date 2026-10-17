@@ -1,1 +1,14 @@
-algo
+Algorithm
+1. Start.
+2. Initialize head = NULL.
+3. Display the menu of operations.
+4. Accept the user's choice.
+5. If the choice is 1, insert an employee record at the beginning.
+6. If the choice is 2, insert an employee record at the end.
+7. If the choice is 3, delete an employee record using Employee ID.
+8. If the choice is 4, search for an employee using Employee ID.
+9. If the choice is 5, display all employee records.
+10. If the choice is 0, terminate the program.
+11. Otherwise, display an invalid-choice message.
+12. Repeat steps 3–11 until the user chooses 0.
+13. Free the remaining nodes and stop.

@@ -1,0 +1,15 @@
+Algorithm
+Algorithm: BFS for Farm Irrigation System
+Start.
+Read the number of farm fields and irrigation channels.
+Create a graph using an adjacency list.
+Add edges between fields connected by irrigation channels.
+Read the field number connected to the water source.
+Initialize all fields as unvisited.
+Insert the source field into a queue and mark it as visited.
+Remove a field from the queue and display it.
+Visit all its unvisited neighbouring fields, mark them as visited, and insert them into the queue.
+Repeat Steps 8 and 9 until the queue becomes empty.
+Display all reachable fields.
+Identify and display the unvisited fields as unreachable.
+Stop.

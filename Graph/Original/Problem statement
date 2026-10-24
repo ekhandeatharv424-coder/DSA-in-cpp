@@ -1,0 +1,2 @@
+Problem Statement
+Develop a C++ program to represent farm fields as vertices and irrigation channels as edges in a graph. Apply Breadth-First Search (BFS) starting from the field connected to the water source. Display all reachable fields and report the fields that cannot be reached from the water source.

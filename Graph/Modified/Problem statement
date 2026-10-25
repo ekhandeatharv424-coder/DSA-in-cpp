@@ -1,0 +1,2 @@
+Problem Statement
+Develop a C++ program to represent farm fields as vertices and irrigation channels as edges. Apply Breadth-First Search (BFS) traversal starting from a user-specified vertex. Display the traversal order, identify reachable and unvisited vertices, count reachable vertices, and display the BFS level of each reachable vertex.

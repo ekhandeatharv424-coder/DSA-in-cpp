@@ -1,0 +1,2 @@
+Objective
+To implement Breadth-First Search (BFS) traversal on a graph representing farm fields connected by irrigation channels. The program allows the user to select a starting vertex and explores all connected vertices level by level using a queue. It displays the BFS traversal order, identifies reachable and unvisited vertices, counts the reachable vertices, and determines the BFS level of each reachable vertex. This helps understand graph traversal and connectivity in practical applications such as agricultural irrigation systems.
